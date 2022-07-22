@@ -1,8 +1,3 @@
-module github.com/hans-d/simple-file-store-go
+module github.com/wxf4150/simple-file-store-go
 
-go 1.14
-
-require (
-	github.com/jcelliott/lumber v0.0.0-20160324203708-dd349441af25
-	gopkg.in/yaml.v2 v2.3.0
-)
+go 1.18

@@ -3,25 +3,29 @@ package filestore
 import (
 	"errors"
 	"io/ioutil"
+	"log"
 	"os"
 	"path/filepath"
 	"sync"
-
-	"github.com/jcelliott/lumber"
 )
 
 var (
 	ErrMissingKey = errors.New("missing key - unable to save data")
 )
 
-// Logger is a generic logger
+// Logger is a generic logger,this is very simple store,should simplet system log.
 type Logger interface {
-	Fatal(string, ...interface{})
-	Error(string, ...interface{})
-	Warn(string, ...interface{})
-	Info(string, ...interface{})
-	Debug(string, ...interface{})
-	Trace(string, ...interface{})
+	//Fatal(string, ...interface{})
+	//Error(string, ...interface{})
+	//Warn(string, ...interface{})
+	//Info(string, ...interface{})
+	//Debug(string, ...interface{})
+	//Trace(string, ...interface{})
+	Printf(format string, v ...any)
+	Println(v ...any)
+	Fatalf(format string, v ...any)
+	Fatalln(v ...any)
+
 }
 
 // Driver holds the config and interacts with the underlying file store.
@@ -58,8 +62,10 @@ func New(baseDir string, options *Options) (*Driver, error) {
 	if options == nil {
 		options = &Options{}
 	}
+	log.Println()
 	if options.Logger == nil {
-		options.Logger = lumber.NewConsoleLogger(lumber.INFO)
+		//options.Logger = lumber.NewConsoleLogger(lumber.INFO)
+		options.Logger = log.Default()
 	}
 	if options.Marshaler == nil {
 		options.Marshaler = &JSONMarshaler{}
@@ -77,11 +83,11 @@ func New(baseDir string, options *Options) (*Driver, error) {
 		placer:    options.Placer,
 	}
 	if _, err := os.Stat(baseDir); err == nil {
-		options.Logger.Debug("Using '%s' (folder already exists)\n", baseDir)
+		options.Logger.Printf("Using '%s' (folder already exists)\n", baseDir)
 		return &driver, nil
 	}
 
-	options.Logger.Debug("Creating storage folder at '%s'...\n", baseDir)
+	options.Logger.Printf("Creating storage folder at '%s'...\n", baseDir)
 	return &driver, os.MkdirAll(baseDir, 0755)
 }
 

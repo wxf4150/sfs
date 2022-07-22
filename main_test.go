@@ -52,7 +52,7 @@ func TestWriteAndRead(t *testing.T) {
 	}
 	testCases := []testCase{
 		{descr: "simple", folder: "simple", options: nil},
-		{descr: "yaml", folder: "yaml", options: &Options{Marshaler: &YAMLMarshaler{}}},
+		//{descr: "yaml", folder: "yaml", options: &Options{Marshaler: &YAMLMarshaler{}}},
 	}
 
 	key := "test/some-gopher"
