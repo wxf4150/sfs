@@ -1,4 +1,4 @@
-package filestore
+package sfs
 
 import (
 	"encoding/json"

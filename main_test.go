@@ -1,4 +1,4 @@
-package filestore
+package sfs
 
 import (
 	"os"
@@ -27,7 +27,7 @@ func TestNew(t *testing.T) {
 		t.Error("Expected nothing, got data folder")
 	}
 
-	if _, err := New(dataFolder, nil); err != nil {
+	if _, err := New(dataFolder); err != nil {
 		t.Errorf("Expected nothing, got %v", err)
 	}
 
@@ -35,7 +35,7 @@ func TestNew(t *testing.T) {
 		t.Error("Expected data folder, got nothing")
 	}
 
-	if _, err := New(dataFolder, nil); err != nil {
+	if _, err := New(dataFolder); err != nil {
 		t.Errorf("Expected nothing, got %v", err)
 	}
 	if _, err := os.Stat(dataFolder); err != nil {
@@ -59,7 +59,7 @@ func TestWriteAndRead(t *testing.T) {
 
 	for _, tt := range testCases {
 		baseDir := filepath.Join(testFolder, tt.folder)
-		f, err := New(baseDir, tt.options)
+		f, err := NewWithOption(baseDir, tt.options)
 
 		if err != nil {
 			t.Errorf("Expected nothing for %s, got %v", tt.descr, err)

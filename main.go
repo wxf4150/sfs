@@ -1,4 +1,4 @@
-package filestore
+package sfs
 
 import (
 	"errors"
@@ -55,10 +55,12 @@ type Options struct {
 	Placer
 }
 
+func New(baseDir string) (*Driver, error) {
+	return NewWithOption(baseDir,&Options{})
+}
 // New creates a new driver at the given location, and returns a *Driver
 // for further interaction. By default will use teh JSONMarshaler.
-func New(baseDir string, options *Options) (*Driver, error) {
-
+func NewWithOption(baseDir string, options *Options) (*Driver, error) {
 	if options == nil {
 		options = &Options{}
 	}
