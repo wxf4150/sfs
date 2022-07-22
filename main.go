@@ -98,7 +98,8 @@ func NewWithOption(baseDir string, options *Options) (*Driver, error) {
 func (d *Driver) Write(key string, v interface{}) error {
 
 	if key == "" {
-		return ErrMissingKey
+		//return ErrMissingKey
+		key="main"
 	}
 
 	mutex := d.getOrCreateMutex(key)
@@ -134,7 +135,8 @@ func (d *Driver) writeFile(key string, v interface{}) error {
 func (d *Driver) Read(key string, v interface{}) error {
 
 	if key == "" {
-		return ErrMissingKey
+		//return ErrMissingKey
+		key="main"
 	}
 
 	return d.readFile(key, v)
